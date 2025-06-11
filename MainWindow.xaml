@@ -1,0 +1,54 @@
+﻿<Window x:Class="Waze.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow"
+        Background="#FFD3D3D3">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Controles de entrada -->
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0" HorizontalAlignment="Left">
+            <TextBlock Text="X:" VerticalAlignment="Center" Margin="0,0,2,0"/>
+            <TextBox x:Name="InputX" Width="40" Margin="0,0,10,0"/>
+            <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,2,0"/>
+            <TextBox x:Name="InputY" Width="40" Margin="0,0,10,0"/>
+            <TextBlock Text="Ciudad:" VerticalAlignment="Center" Margin="0,0,2,0"/>
+            <TextBox x:Name="InputCiudad" Width="100" Margin="0,0,10,0"/>
+            <Button x:Name="BtnColocar" Content="Colocar punto" Click="BtnColocar_Click"/>
+        </StackPanel>
+        <!-- Cuadrícula y labels -->
+        <Grid x:Name="MainGrid" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!-- Esquina vacía -->
+            <Label Grid.Row="0" Grid.Column="0" Width="32" Height="24" Background="Transparent"/>
+            <!-- Coordenadas horizontales -->
+            <StackPanel x:Name="HorizontalLabelsPanel"
+                Orientation="Horizontal"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="0"/>
+            <!-- Coordenadas verticales -->
+            <StackPanel x:Name="VerticalLabelsPanel"
+                Orientation="Vertical"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0"/>
+            <!-- Canvas de la cuadrícula -->
+            <Canvas x:Name="GridCanvas"
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="#FFB9F6CA"
+            Margin="0"/>
+        </Grid>
+
+    </Grid>
+</Window>
