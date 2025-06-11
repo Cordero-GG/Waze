@@ -11,6 +11,8 @@ namespace Waze
         private const int GridCols = 15;
         private const double CellSizeMultiplier = 1.0125;
 
+        private double _cellSize = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -29,112 +31,114 @@ namespace Waze
             AdjustCanvasAndDrawGrid();
         }
 
-        private double _cellSize = 0;
-
         private void AdjustCanvasAndDrawGrid()
         {
+            // Calcula el tamaño máximo disponible para la cuadrícula
             double availableWidth = ActualWidth * 0.6;
             double availableHeight = ActualHeight * 0.8;
 
-            double cellWidth = availableWidth / GridCols;
-            double cellHeight = availableHeight / GridRows;
+            double cellWidth = availableWidth / (GridCols + 1); // +1 para labels
+            double cellHeight = availableHeight / (GridRows + 1); // +1 para labels
             double cellSize = Math.Min(cellWidth, cellHeight);
             cellSize *= CellSizeMultiplier;
 
-            double canvasWidth = cellSize * GridCols;
-            double canvasHeight = cellSize * GridRows;
-
-
-            GridCanvas.Width = canvasWidth;
-            GridCanvas.Height = canvasHeight;
-
             _cellSize = cellSize;
 
-            DrawGridOnCanvas(cellSize, canvasWidth, canvasHeight);
-            DrawCoordinateLabels(cellSize, canvasWidth, canvasHeight);
+            // Ajusta el tamaño de los labels y el canvas
+            CornerLabel.Width = cellSize;
+            CornerLabel.Height = cellSize;
+
+            HorizontalLabelsPanel.Width = cellSize * GridCols;
+            HorizontalLabelsPanel.Height = cellSize;
+
+            VerticalLabelsPanel.Width = cellSize;
+            VerticalLabelsPanel.Height = cellSize * GridRows;
+
+            GridCanvas.Width = cellSize * GridCols;
+            GridCanvas.Height = cellSize * GridRows;
+
+            DrawCoordinateLabels();
+            DrawGridOnCanvas();
         }
 
-        private void DrawGridOnCanvas(double cellSize, double width, double height)
+        private void DrawCoordinateLabels()
+        {
+            HorizontalLabelsPanel.Children.Clear();
+            VerticalLabelsPanel.Children.Clear();
+
+            // Labels horizontales (superior)
+            for (int col = 0; col < GridCols; col++)
+            {
+                var label = new Label
+                {
+                    Content = col.ToString(),
+                    Width = _cellSize,
+                    Height = _cellSize,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    FontWeight = FontWeights.Bold,
+                    Background = Brushes.Transparent,
+                    Foreground = Brushes.Black,
+                    BorderThickness = new Thickness(0),
+                    Padding = new Thickness(0)
+                };
+                HorizontalLabelsPanel.Children.Add(label);
+            }
+
+            // Labels verticales (izquierda)
+            for (int row = 0; row < GridRows; row++)
+            {
+                var label = new Label
+                {
+                    Content = row.ToString(),
+                    Width = _cellSize,
+                    Height = _cellSize,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    FontWeight = FontWeights.Bold,
+                    Background = Brushes.Transparent,
+                    Foreground = Brushes.Black,
+                    BorderThickness = new Thickness(0),
+                    Padding = new Thickness(0)
+                };
+                VerticalLabelsPanel.Children.Add(label);
+            }
+        }
+
+        private void DrawGridOnCanvas()
         {
             GridCanvas.Children.Clear();
 
-            // Líneas verticales (incluye la última columna)
+            // Líneas verticales
             for (int i = 0; i <= GridCols; i++)
             {
-                double x = i * cellSize;
+                double x = i * _cellSize;
                 var line = new Line
                 {
                     X1 = x,
                     Y1 = 0,
                     X2 = x,
-                    Y2 = GridRows * cellSize,
+                    Y2 = GridRows * _cellSize,
                     Stroke = Brushes.White,
                     StrokeThickness = 1
                 };
                 GridCanvas.Children.Add(line);
             }
-            
 
-            // Líneas horizontales (incluye la última fila)
+            // Líneas horizontales
             for (int i = 0; i <= GridRows; i++)
             {
-                double y = i * cellSize;
+                double y = i * _cellSize;
                 var line = new Line
                 {
                     X1 = 0,
                     Y1 = y,
-                    X2 = GridCols * cellSize,
+                    X2 = GridCols * _cellSize,
                     Y2 = y,
                     Stroke = Brushes.White,
                     StrokeThickness = 1
                 };
                 GridCanvas.Children.Add(line);
-            }
-            
-        }
-
-        private void DrawCoordinateLabels(double cellSize, double canvasWidth, double canvasHeight)
-        {
-            HorizontalLabelsPanel.Children.Clear();
-            VerticalLabelsPanel.Children.Clear();
-
-            // Coordenadas verticales (izquierda)
-            for (int row = 0; row <= GridRows; row++)
-            {
-                var label = new Label
-                {
-                    Content = row.ToString(),
-                    Width = cellSize, // <-- Igual que la celda
-                    Height = cellSize,
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    FontWeight = FontWeights.Bold,
-                    Background = Brushes.Transparent,
-                    Foreground = Brushes.Black,
-                    BorderThickness = new Thickness(0),
-                    Padding = new Thickness(0)
-                };
-                VerticalLabelsPanel.Children.Add(label);
-            }
-
-
-            // Coordenadas verticales (izquierda)
-            for (int row = 0; row <= GridRows; row++)
-            {
-                var label = new Label
-                {
-                    Content = row.ToString(),
-                    Width = 32,
-                    Height = cellSize,
-                    HorizontalContentAlignment = HorizontalAlignment.Center,
-                    VerticalContentAlignment = VerticalAlignment.Center,
-                    FontWeight = FontWeights.Bold,
-                    Background = Brushes.Transparent,
-                    Foreground = Brushes.Black,
-                    BorderThickness = new Thickness(0),
-                    Padding = new Thickness(0)
-                };
-                VerticalLabelsPanel.Children.Add(label);
             }
         }
 
@@ -143,7 +147,7 @@ namespace Waze
             if (int.TryParse(InputX.Text, out int x) && int.TryParse(InputY.Text, out int y))
             {
                 string ciudad = InputCiudad.Text?.Trim() ?? "";
-                if (x >= 0 && x <= GridCols && y >= 0 && y <= GridRows)
+                if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)
                 {
                     // Dibuja un punto en la celda (x, y)
                     double size = _cellSize * 0.5;
@@ -166,13 +170,11 @@ namespace Waze
                             Foreground = Brushes.Black,
                             FontWeight = FontWeights.Bold,
                             FontSize = _cellSize * 0.22,
-                            TextAlignment = TextAlignment.Center
+                            TextAlignment = TextAlignment.Center,
+                            Width = _cellSize
                         };
-                        // Centrar el texto bajo el punto
-                        double labelWidth = _cellSize;
-                        double labelX = x * _cellSize + (_cellSize - labelWidth) / 2;
+                        double labelX = x * _cellSize;
                         double labelY = y * _cellSize + _cellSize * 0.65;
-                        label.Width = labelWidth;
                         Canvas.SetLeft(label, labelX);
                         Canvas.SetTop(label, labelY);
                         GridCanvas.Children.Add(label);

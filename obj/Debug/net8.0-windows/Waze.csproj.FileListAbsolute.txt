@@ -17,3 +17,4 @@ C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\refint\Waze.dll
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.pdb
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.genruntimeconfig.cache
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\ref\Waze.dll
+C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.sourcelink.json
