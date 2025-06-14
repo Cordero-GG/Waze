@@ -158,7 +158,6 @@ namespace Waze
             }
         }
 
-        // Creación de las carreteras entre las ciudades 
         private void BtnCrearCarretera_Click(object sender, RoutedEventArgs e)
         {
             if (ListBoxInicio.SelectedItem is Ciudad ciudadInicio && ListBoxFin.SelectedItem is Ciudad ciudadFin)
@@ -233,7 +232,7 @@ namespace Waze
 
 
 
-        // Creación de los nodos que serían las ciudades 
+
         private void BtnColocar_Click(object sender, RoutedEventArgs e)
         {
             string ciudad = InputCiudad.Text?.Trim() ?? "";
@@ -305,41 +304,6 @@ namespace Waze
             }
         }
 
-
-        // Creación de los carros 
-        private void BtnCrearCarro_Click(object sender, RoutedEventArgs e)
-        {
-            // Obtiene las ciudades que tienen al menos una carretera
-            var ciudadesConCarretera = carreteras
-                .SelectMany(c => new[] { c.Item1, c.Item2 })
-                .Distinct()
-                .ToList();
-
-            if (ciudadesConCarretera.Count == 0)
-            {
-                MessageBox.Show("No hay ciudades con carreteras para colocar un carro.");
-                return;
-            }
-
-            // Selecciona una ciudad aleatoria
-            var random = new Random();
-            var ciudad = ciudadesConCarretera[random.Next(ciudadesConCarretera.Count)];
-
-            // Crea el nodo del carro (más pequeño que el de la ciudad)
-            var image = new Image
-            {
-                Width = _cellSize * 0.4, // Más pequeño que la ciudad
-                Height = _cellSize * 0.4,
-                Source = new BitmapImage(new Uri("pack://application:,,,/Images/Carro.png"))
-            };
-
-            // Centra el carro en la celda de la ciudad
-            double x = ciudad.X * _cellSize + (_cellSize - image.Width) / 2;
-            double y = ciudad.Y * _cellSize + (_cellSize - image.Height) / 2;
-            Canvas.SetLeft(image, x);
-            Canvas.SetTop(image, y);
-            GridCanvas.Children.Add(image);
-        }
 
 
     }
