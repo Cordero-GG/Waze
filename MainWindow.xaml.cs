@@ -146,9 +146,15 @@ namespace Waze
 
         private void BtnColocar_Click(object sender, RoutedEventArgs e)
         {
+            string ciudad = InputCiudad.Text?.Trim() ?? "";
+            if (string.IsNullOrEmpty(ciudad))
+            {
+                MessageBox.Show("Por favor, ingresa el nombre de la ciudad antes de colocar el nodo.");
+                return;
+            }
+
             if (int.TryParse(InputX.Text, out int x) && int.TryParse(InputY.Text, out int y))
             {
-                string ciudad = InputCiudad.Text?.Trim() ?? "";
                 if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)
                 {
                     // Carga la imagen desde los recursos
@@ -163,23 +169,20 @@ namespace Waze
                     GridCanvas.Children.Add(image);
 
                     // Dibuja el nombre de la ciudad debajo de la imagen
-                    if (!string.IsNullOrEmpty(ciudad))
+                    var label = new TextBlock
                     {
-                        var label = new TextBlock
-                        {
-                            Text = ciudad,
-                            Foreground = Brushes.Black,
-                            FontWeight = FontWeights.Bold,
-                            FontSize = _cellSize * 0.22,
-                            TextAlignment = TextAlignment.Center,
-                            Width = _cellSize
-                        };
-                        double labelX = x * _cellSize;
-                        double labelY = y * _cellSize + _cellSize * 0.85;
-                        Canvas.SetLeft(label, labelX);
-                        Canvas.SetTop(label, labelY);
-                        GridCanvas.Children.Add(label);
-                    }
+                        Text = ciudad,
+                        Foreground = Brushes.Black,
+                        FontWeight = FontWeights.Bold,
+                        FontSize = _cellSize * 0.22,
+                        TextAlignment = TextAlignment.Center,
+                        Width = _cellSize
+                    };
+                    double labelX = x * _cellSize;
+                    double labelY = y * _cellSize + _cellSize * 0.85;
+                    Canvas.SetLeft(label, labelX);
+                    Canvas.SetTop(label, labelY);
+                    GridCanvas.Children.Add(label);
                 }
                 else
                 {
@@ -191,6 +194,7 @@ namespace Waze
                 MessageBox.Show("Introduce valores numéricos válidos para X e Y.");
             }
         }
+
 
     }
 }
