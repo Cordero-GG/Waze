@@ -1,17 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\",
+  "WorkspaceRootPath": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\",
   "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FA622C00-B6EC-41EA-85BD-AF9A2A7F7B5E}|Backend\\Backend.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\backend\\dllforwaze.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA622C00-B6EC-41EA-85BD-AF9A2A7F7B5E}|Backend\\Backend.csproj|solutionrelative:backend\\dllforwaze.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,11 +25,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
               "$type": "Bookmark",
@@ -40,48 +56,53 @@
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DllforunityDB.cs",
-              "DocumentMoniker": "C:\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
-              "ToolTip": "C:\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
-              "ViewState": "AgIAAKgAAAAAAAAAAAAAALQAAAAJAAAAAAAAAA==",
+              "Title": "DllForWaze.cs",
+              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Backend\\DllForWaze.cs",
+              "RelativeDocumentMoniker": "Backend\\DllForWaze.cs",
+              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Backend\\DllForWaze.cs",
+              "RelativeToolTip": "Backend\\DllForWaze.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAcwDoCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T23:46:43.567Z",
+              "WhenOpened": "2025-06-14T19:39:56.719Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "DllforunityDB.cs",
+              "DocumentMoniker": "C:\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
+              "ToolTip": "C:\\Users\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\damoz\\AppData\\Local\\Packages\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\\TempState\\1D656CA6611216968C7C89914031E043\\DllforunityDB.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T23:46:43.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-06-11T19:06:50.043Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-11T19:06:46.913Z"
+              "WhenOpened": "2025-06-11T19:06:46.913Z",
+              "EditorCaption": ""
             }
           ]
         }
