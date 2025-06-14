@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waze", "Waze.csproj", "{0BD77F8E-38DB-4ACB-B54B-642E111234C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "..\Backend\Backend.csproj", "{56B80729-BABE-40C4-AA23-105AD62C20FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0BD77F8E-38DB-4ACB-B54B-642E111234C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BD77F8E-38DB-4ACB-B54B-642E111234C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BD77F8E-38DB-4ACB-B54B-642E111234C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56B80729-BABE-40C4-AA23-105AD62C20FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56B80729-BABE-40C4-AA23-105AD62C20FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56B80729-BABE-40C4-AA23-105AD62C20FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56B80729-BABE-40C4-AA23-105AD62C20FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
