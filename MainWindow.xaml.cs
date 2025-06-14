@@ -14,6 +14,11 @@ namespace Waze
 
         private double _cellSize = 0;
 
+        private List<Ciudad> ciudades = new List<Ciudad>();
+        private List<(Ciudad, Ciudad)> carreteras = new List<(Ciudad, Ciudad)>();
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,6 +36,15 @@ namespace Waze
         {
             AdjustCanvasAndDrawGrid();
         }
+
+        public class Ciudad
+        {
+            public string Nombre { get; set; }
+            public int X { get; set; }
+            public int Y { get; set; }
+            public override string ToString() => Nombre;
+        }
+
 
         private void AdjustCanvasAndDrawGrid()
         {
@@ -144,6 +158,81 @@ namespace Waze
             }
         }
 
+        private void BtnCrearCarretera_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBoxInicio.SelectedItem is Ciudad ciudadInicio && ListBoxFin.SelectedItem is Ciudad ciudadFin)
+            {
+                if (ciudadInicio == ciudadFin)
+                {
+                    MessageBox.Show("Selecciona dos ciudades diferentes.");
+                    return;
+                }
+
+                // Verifica si ya existe una carretera entre estas dos ciudades (en cualquier dirección)
+                bool existe = carreteras.Any(c =>
+                    (c.Item1 == ciudadInicio && c.Item2 == ciudadFin) ||
+                    (c.Item1 == ciudadFin && c.Item2 == ciudadInicio)
+                );
+                if (existe)
+                {
+                    MessageBox.Show("Ya existe una carretera entre estas dos ciudades.");
+                    return;
+                }
+
+                // Calcula el centro de cada ciudad
+                double x1 = ciudadInicio.X * _cellSize + _cellSize / 2;
+                double y1 = ciudadInicio.Y * _cellSize + _cellSize / 2;
+                double x2 = ciudadFin.X * _cellSize + _cellSize / 2;
+                double y2 = ciudadFin.Y * _cellSize + _cellSize / 2;
+
+                // Calcula el vector perpendicular para separar las líneas
+                double dx = x2 - x1;
+                double dy = y2 - y1;
+                double length = Math.Sqrt(dx * dx + dy * dy);
+                double offset = 8; // Puedes ajustar este valor para más separación
+
+                // Vector perpendicular normalizado
+                double perpX = -dy / length * offset;
+                double perpY = dx / length * offset;
+
+                // Línea de ida (azul)
+                var lineaIda = new Line
+                {
+                    X1 = x1 + perpX,
+                    Y1 = y1 + perpY,
+                    X2 = x2 + perpX,
+                    Y2 = y2 + perpY,
+                    Stroke = Brushes.Blue,
+                    StrokeThickness = 3,
+                    StrokeDashArray = new DoubleCollection { 2, 2 }
+                };
+                GridCanvas.Children.Add(lineaIda);
+
+                // Línea de vuelta (roja)
+                var lineaVuelta = new Line
+                {
+                    X1 = x2 - perpX,
+                    Y1 = y2 - perpY,
+                    X2 = x1 - perpX,
+                    Y2 = y1 - perpY,
+                    Stroke = Brushes.Red,
+                    StrokeThickness = 3,
+                    StrokeDashArray = new DoubleCollection { 2, 2 }
+                };
+                GridCanvas.Children.Add(lineaVuelta);
+
+                // Registra la carretera creada
+                carreteras.Add((ciudadInicio, ciudadFin));
+            }
+            else
+            {
+                MessageBox.Show("Selecciona una ciudad de inicio y una de fin.");
+            }
+        }
+
+
+
+
         private void BtnColocar_Click(object sender, RoutedEventArgs e)
         {
             string ciudad = InputCiudad.Text?.Trim() ?? "";
@@ -157,6 +246,13 @@ namespace Waze
             {
                 if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)
                 {
+                    // Verifica si ya existe una ciudad en esa posición
+                    if (ciudades.Any(c => c.X == x && c.Y == y))
+                    {
+                        MessageBox.Show("Ya existe una ciudad en esa posición.");
+                        return;
+                    }
+
                     // Carga la imagen desde los recursos
                     var image = new Image
                     {
@@ -183,6 +279,12 @@ namespace Waze
                     Canvas.SetLeft(label, labelX);
                     Canvas.SetTop(label, labelY);
                     GridCanvas.Children.Add(label);
+
+                    // Agrega la ciudad a la lista y actualiza los ListBox
+                    var nuevaCiudad = new Ciudad { Nombre = ciudad, X = x, Y = y };
+                    ciudades.Add(nuevaCiudad);
+                    ListBoxInicio.Items.Add(nuevaCiudad);
+                    ListBoxFin.Items.Add(nuevaCiudad);
                 }
                 else
                 {
@@ -194,6 +296,7 @@ namespace Waze
                 MessageBox.Show("Introduce valores numéricos válidos para X e Y.");
             }
         }
+
 
 
     }
