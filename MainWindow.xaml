@@ -17,8 +17,8 @@
 			<TextBox x:Name="InputY" Width="40" Margin="0,0,10,0"/>
 			<TextBlock Text="Ciudad:" VerticalAlignment="Center" Margin="0,0,2,0"/>
 			<TextBox x:Name="InputCiudad" Width="100" Margin="0,0,10,0"/>
-			<Button x:Name="BtnColocar" Content="Colocar punto" Click="BtnColocar_Click"/>
-		</StackPanel>
+            <Button x:Name="BtnColocar" Content="Colocar punto" Click="BtnColocar_Click"/>
+        </StackPanel>
 
 		<!-- Cuadrícula y labels -->
 		<Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="OuterGrid">
