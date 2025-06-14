@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -303,6 +304,46 @@ namespace Waze
             {
                 MessageBox.Show("Introduce valores numéricos válidos para X e Y.");
             }
+        }
+
+
+        private void BtnCrearCarro_Click(object sender, RoutedEventArgs e)
+        {
+            CrearCarroEnCiudadAleatoria();
+        }
+
+        private void CrearCarroEnCiudadAleatoria()
+        {
+            // Obtiene las ciudades que tienen al menos una carretera
+            var ciudadesConCarretera = carreteras
+                .SelectMany(c => new[] { c.Item1, c.Item2 })
+                .Distinct()
+                .ToList();
+
+            if (ciudadesConCarretera.Count == 0)
+            {
+                MessageBox.Show("No hay ciudades con carreteras para colocar un carro.");
+                return;
+            }
+
+            // Selecciona una ciudad aleatoria
+            var random = new Random();
+            var ciudad = ciudadesConCarretera[random.Next(ciudadesConCarretera.Count)];
+
+            // Dibuja el carro (imagen pequeña) en el centro de la ciudad
+            double x = ciudad.X * _cellSize + _cellSize / 2;
+            double y = ciudad.Y * _cellSize + _cellSize / 2;
+            double size = _cellSize * 0.25; // Tamaño más pequeño que la ciudad
+
+            var carro = new Image
+            {
+                Width = size,
+                Height = size,
+                Source = new BitmapImage(new Uri("pack://application:,,,/Images/carro.png"))
+            };
+            Canvas.SetLeft(carro, x - size / 2);
+            Canvas.SetTop(carro, y - size / 2);
+            GridCanvas.Children.Add(carro);
         }
 
 
