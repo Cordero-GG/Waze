@@ -242,6 +242,13 @@ namespace Waze
                 return;
             }
 
+            // Verifica si ya existe una ciudad con el mismo nombre (ignorando mayúsculas/minúsculas)
+            if (ciudades.Any(c => c.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("Ya existe una ciudad con ese nombre. Por favor, elige otro nombre.");
+                return;
+            }
+
             if (int.TryParse(InputX.Text, out int x) && int.TryParse(InputY.Text, out int y))
             {
                 if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)

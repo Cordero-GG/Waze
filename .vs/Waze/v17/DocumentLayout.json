@@ -57,8 +57,7 @@
               "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-11T19:06:50.043Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-11T19:06:50.043Z"
             },
             {
               "$type": "Document",
@@ -68,7 +67,7 @@
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAAL8AAAAAAAAAAAAAAOcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAuwPkAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-11T19:06:46.913Z",
               "EditorCaption": ""
