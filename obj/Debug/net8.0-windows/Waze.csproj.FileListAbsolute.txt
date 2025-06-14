@@ -18,3 +18,23 @@ C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.pdb
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.genruntimeconfig.cache
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\ref\Waze.dll
 C:\Códigos\DATOS 1\Proyecto3\Waze\obj\Debug\net8.0-windows\Waze.sourcelink.json
+C:\Users\GokFu\OneDrive\Desktop\Waze\bin\Debug\net8.0-windows\Waze.exe
+C:\Users\GokFu\OneDrive\Desktop\Waze\bin\Debug\net8.0-windows\Waze.deps.json
+C:\Users\GokFu\OneDrive\Desktop\Waze\bin\Debug\net8.0-windows\Waze.runtimeconfig.json
+C:\Users\GokFu\OneDrive\Desktop\Waze\bin\Debug\net8.0-windows\Waze.dll
+C:\Users\GokFu\OneDrive\Desktop\Waze\bin\Debug\net8.0-windows\Waze.pdb
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze_MarkupCompile.cache
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.g.resources
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.AssemblyInfoInputs.cache
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.AssemblyInfo.cs
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.csproj.CoreCompileInputs.cache
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.sourcelink.json
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.dll
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\refint\Waze.dll
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.pdb
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\Waze.genruntimeconfig.cache
+C:\Users\GokFu\OneDrive\Desktop\Waze\obj\Debug\net8.0-windows\ref\Waze.dll

@@ -8,9 +8,9 @@ namespace Waze
 {
     public partial class MainWindow : Window
     {
-        private const int GridRows = 10;
-        private const int GridCols = 15;
-        private const double CellSizeMultiplier = 1.1;
+        private const int GridRows = 6; // Cambiado a 6 filas
+        private const int GridCols = 12;
+        // Eliminado el multiplicador para evitar que se salga de la ventana
 
         private double _cellSize = 0;
 
@@ -34,14 +34,14 @@ namespace Waze
 
         private void AdjustCanvasAndDrawGrid()
         {
-            // Calcula el tamaño máximo disponible para la cuadrícula
-            double availableWidth = ActualWidth * 0.6;
+            // Calcula el tamaño máximo disponible para la cuadrícula (80% de la ventana)
+            double availableWidth = ActualWidth * 0.8;
             double availableHeight = ActualHeight * 0.8;
 
-            double cellWidth = availableWidth / (GridCols + 1); // +1 para labels
-            double cellHeight = availableHeight / (GridRows + 1); // +1 para labels
+            // Calcula el tamaño de celda considerando labels (una fila y columna extra)
+            double cellWidth = availableWidth / (GridCols + 1);
+            double cellHeight = availableHeight / (GridRows + 1);
             double cellSize = Math.Min(cellWidth, cellHeight);
-            cellSize *= CellSizeMultiplier;
 
             _cellSize = cellSize;
 
@@ -61,6 +61,7 @@ namespace Waze
             DrawCoordinateLabels();
             DrawGridOnCanvas();
         }
+
 
         private void DrawCoordinateLabels()
         {
