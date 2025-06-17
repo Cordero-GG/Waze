@@ -69,6 +69,8 @@
             <ListBox x:Name="ListBoxFin" Width="120" Height="60" Margin="0,0,0,8"/>
             <Button x:Name="BtnCrearCarretera" Content="Crear Carretera" Click="BtnCrearCarretera_Click" Width="120" Height="28"/>
             <Button x:Name="BtnCrearCarro" Content="Crear Carro" Click="BtnCrearCarro_Click" Width="120" Height="28" Margin="0,8,0,0"/>
+            <Button x:Name="BtnViajar" Content="Viajar" Click="BtnViajar_Click" Width="120" Height="28" Margin="0,8,0,0"/>
+
         </StackPanel>
 
        
