@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using Waze.Estructuras;
 
-
 namespace Waze
 {
     public partial class MainWindow : Window
@@ -15,7 +14,8 @@ namespace Waze
         private double _cellSize = 0;
 
         private List<Ciudad> ciudades = new List<Ciudad>();
-        private List<(Ciudad, Ciudad)> carreteras = new List<(Ciudad, Ciudad)>();
+        private List<Carretera> carreteras = new List<Carretera>();
+        private List<CarroVisual> carros = new List<CarroVisual>();
 
         public MainWindow()
         {
@@ -23,6 +23,7 @@ namespace Waze
             WindowState = WindowState.Maximized;
             Loaded += MainWindow_Loaded;
             SizeChanged += MainWindow_SizeChanged;
+            SliderVelocidad.ValueChanged += SliderVelocidad_ValueChanged;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -33,6 +34,12 @@ namespace Waze
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AdjustCanvasAndDrawGrid();
+        }
+
+        private void SliderVelocidad_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (LabelVelocidad != null)
+                LabelVelocidad.Text = $"Velocidad: {SliderVelocidad.Value:0}";
         }
 
         private void AdjustCanvasAndDrawGrid()
@@ -61,6 +68,7 @@ namespace Waze
             DrawCoordinateLabels();
             DrawGridOnCanvas();
             RedrawCiudadesYCarreteras();
+            RedrawCarros();
         }
 
         private void DrawCoordinateLabels()
@@ -105,57 +113,6 @@ namespace Waze
             }
         }
 
-        private void AnimarCarro(Canvas canvas, Ciudad inicio, Ciudad fin, double cellSize)
-        {
-            // Elimina cualquier carro anterior
-            var carros = canvas.Children.OfType<System.Windows.Controls.Image>()
-                .Where(img => img.Source is System.Windows.Media.Imaging.BitmapImage bmp && bmp.UriSource.ToString().Contains("carro.png"))
-                .ToList();
-            foreach (var carro in carros)
-                canvas.Children.Remove(carro);
-
-            // Crea la imagen del carro
-            double size = cellSize * 0.25;
-            var carroImg = new System.Windows.Controls.Image
-            {
-                Width = size,
-                Height = size,
-                Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/carro.png"))
-            };
-
-            double x0 = inicio.X * cellSize + cellSize / 2 - size / 2;
-            double y0 = inicio.Y * cellSize + cellSize / 2 - size / 2;
-            double x1 = fin.X * cellSize + cellSize / 2 - size / 2;
-            double y1 = fin.Y * cellSize + cellSize / 2 - size / 2;
-
-            Canvas.SetLeft(carroImg, x0);
-            Canvas.SetTop(carroImg, y0);
-            canvas.Children.Add(carroImg);
-
-            // Animación simple usando DispatcherTimer
-            var steps = 50;
-            int currentStep = 0;
-            var timer = new System.Windows.Threading.DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(15)
-            };
-            timer.Tick += (s, e) =>
-            {
-                currentStep++;
-                double t = (double)currentStep / steps;
-                double x = x0 + (x1 - x0) * t;
-                double y = y0 + (y1 - y0) * t;
-                Canvas.SetLeft(carroImg, x);
-                Canvas.SetTop(carroImg, y);
-                if (currentStep >= steps)
-                {
-                    timer.Stop();
-                }
-            };
-            timer.Start();
-        }
-
-
         private void DrawGridOnCanvas()
         {
             GridCanvas.Children.Clear();
@@ -196,13 +153,36 @@ namespace Waze
             // Dibuja carreteras
             foreach (var carretera in carreteras)
             {
-                Dibujador.DibujaCarretera(GridCanvas, carretera.Item1, carretera.Item2, _cellSize);
+                DibujarCarreteraConTiempo(GridCanvas, carretera, _cellSize);
             }
 
             // Dibuja ciudades
             foreach (var ciudad in ciudades)
             {
-                Dibujador.DibujaCiudad(GridCanvas, ciudad, _cellSize);
+                DibujarCiudad(GridCanvas, ciudad, _cellSize);
+            }
+        }
+
+        private void RedrawCarros()
+        {
+            // Elimina todos los carros del canvas y los vuelve a dibujar en su ciudad actual
+            var imgs = GridCanvas.Children.OfType<Image>().Where(img =>
+                img.Source is System.Windows.Media.Imaging.BitmapImage bmp && bmp.UriSource.ToString().Contains("carro.png")).ToList();
+            foreach (var img in imgs)
+                GridCanvas.Children.Remove(img);
+
+            foreach (var carro in carros)
+            {
+                double x = carro.CiudadActual.X * _cellSize + _cellSize / 2;
+                double y = carro.CiudadActual.Y * _cellSize + _cellSize / 2;
+                double size = _cellSize * 0.25;
+
+                carro.Imagen.Width = size;
+                carro.Imagen.Height = size;
+                Canvas.SetLeft(carro.Imagen, x - size / 2);
+                Canvas.SetTop(carro.Imagen, y - size / 2);
+                if (!GridCanvas.Children.Contains(carro.Imagen))
+                    GridCanvas.Children.Add(carro.Imagen);
             }
         }
 
@@ -236,7 +216,7 @@ namespace Waze
                     ListBoxInicio.Items.Add(nuevaCiudad);
                     ListBoxFin.Items.Add(nuevaCiudad);
 
-                    Dibujador.DibujaCiudad(GridCanvas, nuevaCiudad, _cellSize);
+                    DibujarCiudad(GridCanvas, nuevaCiudad, _cellSize);
                 }
                 else
                 {
@@ -259,9 +239,15 @@ namespace Waze
                     return;
                 }
 
+                if (!double.TryParse(InputTiempo.Text, out double tiempo) || tiempo <= 0)
+                {
+                    MessageBox.Show("Introduce un tiempo de recorrido válido (mayor a 0).");
+                    return;
+                }
+
                 bool existe = carreteras.Any(c =>
-                    (c.Item1 == ciudadInicio && c.Item2 == ciudadFin) ||
-                    (c.Item1 == ciudadFin && c.Item2 == ciudadInicio)
+                    (c.Origen == ciudadInicio && c.Destino == ciudadFin) ||
+                    (c.Origen == ciudadFin && c.Destino == ciudadInicio)
                 );
                 if (existe)
                 {
@@ -269,8 +255,9 @@ namespace Waze
                     return;
                 }
 
-                carreteras.Add((ciudadInicio, ciudadFin));
-                Dibujador.DibujaCarretera(GridCanvas, ciudadInicio, ciudadFin, _cellSize);
+                var carretera = new Carretera(ciudadInicio, ciudadFin, tiempo);
+                carreteras.Add(carretera);
+                DibujarCarreteraConTiempo(GridCanvas, carretera, _cellSize);
             }
             else
             {
@@ -286,7 +273,7 @@ namespace Waze
         private void CrearCarroEnCiudadAleatoria()
         {
             var ciudadesConCarretera = carreteras
-                .SelectMany(c => new[] { c.Item1, c.Item2 })
+                .SelectMany(c => new[] { c.Origen, c.Destino })
                 .Distinct()
                 .ToList();
 
@@ -303,33 +290,142 @@ namespace Waze
             double y = ciudad.Y * _cellSize + _cellSize / 2;
             double size = _cellSize * 0.25;
 
-            var carro = new System.Windows.Controls.Image
+            var carroImg = new System.Windows.Controls.Image
             {
                 Width = size,
                 Height = size,
                 Source = new System.Windows.Media.Imaging.BitmapImage(new Uri("pack://application:,,,/Images/carro.png"))
             };
-            Canvas.SetLeft(carro, x - size / 2);
-            Canvas.SetTop(carro, y - size / 2);
-            GridCanvas.Children.Add(carro);
+            Canvas.SetLeft(carroImg, x - size / 2);
+            Canvas.SetTop(carroImg, y - size / 2);
+            GridCanvas.Children.Add(carroImg);
+
+            carros.Add(new CarroVisual { CiudadActual = ciudad, Imagen = carroImg });
         }
 
         private void BtnViajar_Click(object sender, RoutedEventArgs e)
         {
-            if (ListBoxInicio.SelectedItem is Ciudad ciudadInicio && ListBoxFin.SelectedItem is Ciudad ciudadFin)
+            if (ListBoxFin.SelectedItem is Ciudad ciudadFin)
             {
-                if (ciudadInicio == ciudadFin)
+                double velocidad = SliderVelocidad.Value; // 1 (lento) a 500 (rápido)
+                int maxInterval = 100; // ms (más lento)
+                int minInterval = 1;   // ms (más rápido)
+                int interval = (int)(maxInterval - ((velocidad - 1) * (maxInterval - minInterval) / (SliderVelocidad.Maximum - 1)));
+                if (interval < minInterval) interval = minInterval;
+
+
+                foreach (var carro in carros)
                 {
-                    MessageBox.Show("Selecciona dos ciudades diferentes.");
-                    return;
+                    AnimarCarro(carro, ciudadFin, _cellSize, interval);
                 }
 
-                AnimarCarro(GridCanvas, ciudadInicio, ciudadFin, _cellSize);
+
             }
             else
             {
-                MessageBox.Show("Selecciona una ciudad de inicio y una de fin.");
+                MessageBox.Show("Selecciona una ciudad de destino.");
             }
+        }
+
+        private void DibujarCiudad(Canvas canvas, Ciudad ciudad, double cellSize)
+        {
+            double x = ciudad.X * cellSize + cellSize / 2;
+            double y = ciudad.Y * cellSize + cellSize / 2;
+            double size = cellSize * 0.6;
+
+            var ellipse = new System.Windows.Shapes.Ellipse
+            {
+                Width = size,
+                Height = size,
+                Fill = System.Windows.Media.Brushes.Yellow,
+                Stroke = System.Windows.Media.Brushes.Black,
+                StrokeThickness = 2
+            };
+            Canvas.SetLeft(ellipse, x - size / 2);
+            Canvas.SetTop(ellipse, y - size / 2);
+            canvas.Children.Add(ellipse);
+
+            var label = new TextBlock
+            {
+                Text = ciudad.Nombre,
+                Foreground = System.Windows.Media.Brushes.Black,
+                FontWeight = FontWeights.Bold,
+                FontSize = cellSize * 0.22,
+                TextAlignment = TextAlignment.Center,
+                Width = cellSize
+            };
+            Canvas.SetLeft(label, x - cellSize / 2);
+            Canvas.SetTop(label, y + size / 2 - cellSize * 0.1);
+            canvas.Children.Add(label);
+        }
+
+        private void DibujarCarreteraConTiempo(Canvas canvas, Carretera carretera, double cellSize)
+        {
+            double x1 = carretera.Origen.X * cellSize + cellSize / 2;
+            double y1 = carretera.Origen.Y * cellSize + cellSize / 2;
+            double x2 = carretera.Destino.X * cellSize + cellSize / 2;
+            double y2 = carretera.Destino.Y * cellSize + cellSize / 2;
+
+            var line = new System.Windows.Shapes.Line
+            {
+                X1 = x1,
+                Y1 = y1,
+                X2 = x2,
+                Y2 = y2,
+                Stroke = System.Windows.Media.Brushes.Blue,
+                StrokeThickness = 3
+            };
+            canvas.Children.Add(line);
+
+            // Posición del texto (punto medio)
+            double textX = (x1 + x2) / 2;
+            double textY = (y1 + y2) / 2;
+
+            var tiempoLabel = new TextBlock
+            {
+                Text = carretera.Tiempo.ToString("0.##"),
+                Foreground = System.Windows.Media.Brushes.Red,
+                FontWeight = FontWeights.Bold,
+                FontSize = cellSize * 0.3,
+                Background = System.Windows.Media.Brushes.White,
+                Opacity = 0.8,
+                Padding = new Thickness(2)
+            };
+            Canvas.SetLeft(tiempoLabel, textX - cellSize * 0.15);
+            Canvas.SetTop(tiempoLabel, textY - cellSize * 0.15);
+            canvas.Children.Add(tiempoLabel);
+        }
+
+        private void AnimarCarro(CarroVisual carro, Ciudad destino, double cellSize, int interval)
+        {
+            var img = carro.Imagen;
+            double size = img.Width;
+            double x0 = carro.CiudadActual.X * cellSize + cellSize / 2 - size / 2;
+            double y0 = carro.CiudadActual.Y * cellSize + cellSize / 2 - size / 2;
+            double x1 = destino.X * cellSize + cellSize / 2 - size / 2;
+            double y1 = destino.Y * cellSize + cellSize / 2 - size / 2;
+
+            int steps = 50;
+            int currentStep = 0;
+            var timer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(interval)
+            };
+            timer.Tick += (s, e) =>
+            {
+                currentStep++;
+                double t = (double)currentStep / steps;
+                double x = x0 + (x1 - x0) * t;
+                double y = y0 + (y1 - y0) * t;
+                Canvas.SetLeft(img, x);
+                Canvas.SetTop(img, y);
+                if (currentStep >= steps)
+                {
+                    timer.Stop();
+                    carro.CiudadActual = destino;
+                }
+            };
+            timer.Start();
         }
     }
 }

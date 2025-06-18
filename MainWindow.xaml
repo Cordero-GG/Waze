@@ -67,13 +67,14 @@
             <ListBox x:Name="ListBoxInicio" Width="120" Height="60" Margin="0,0,0,8"/>
             <TextBlock Text="Destino:" FontWeight="Bold" Margin="0,0,0,2"/>
             <ListBox x:Name="ListBoxFin" Width="120" Height="60" Margin="0,0,0,8"/>
+            <TextBlock Text="Tiempo (min):" FontWeight="Bold" Margin="0,8,0,2"/>
+            <TextBox x:Name="InputTiempo" Width="120" Height="25" Margin="0,0,0,8"/>
             <Button x:Name="BtnCrearCarretera" Content="Crear Carretera" Click="BtnCrearCarretera_Click" Width="120" Height="28"/>
             <Button x:Name="BtnCrearCarro" Content="Crear Carro" Click="BtnCrearCarro_Click" Width="120" Height="28" Margin="0,8,0,0"/>
             <Button x:Name="BtnViajar" Content="Viajar" Click="BtnViajar_Click" Width="120" Height="28" Margin="0,8,0,0"/>
-
+            <TextBlock Text="Velocidad de animación:" FontWeight="Bold" Margin="0,16,0,2"/>
+            <Slider x:Name="SliderVelocidad" Minimum="1" Maximum="500" Value="100" Width="120" TickFrequency="1" IsSnapToTickEnabled="True"/>
+            <TextBlock x:Name="LabelVelocidad" Text="Velocidad: 50" Margin="0,2,0,0"/>
         </StackPanel>
-
-       
-
     </Grid>
 </Window>

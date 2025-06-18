@@ -14,6 +14,8 @@ namespace Waze.Estructuras
         public DateTime HoraInicio { get; set; }
         public DateTime? HoraLlegada { get; set; }
         public string Id { get; set; } // Para identificar el carro en la UI
+        public Ciudad CiudadActual { get; set; }
+        public Carro Imagen { get; set; }
 
         public Carro(Punto origen, Punto destino, string id)
         {
