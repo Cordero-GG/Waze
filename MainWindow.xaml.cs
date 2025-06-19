@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Waze.Estructuras;
@@ -13,9 +11,10 @@ namespace Waze
         private const int GridCols = 12;
         private double _cellSize = 0;
 
-        private List<Ciudad> ciudades = new List<Ciudad>();
-        private List<Carretera> carreteras = new List<Carretera>();
-        private List<CarroVisual> carros = new List<CarroVisual>();
+        // Usar ListaSimple en vez de List
+        private ListaSimple<Ciudad> ciudades = new ListaSimple<Ciudad>();
+        private ListaSimple<Carretera> carreteras = new ListaSimple<Carretera>();
+        private ListaSimple<CarroVisual> carros = new ListaSimple<CarroVisual>();
 
         public MainWindow()
         {
@@ -151,13 +150,13 @@ namespace Waze
         private void RedrawCiudadesYCarreteras()
         {
             // Dibuja carreteras
-            foreach (var carretera in carreteras)
+            foreach (var carretera in carreteras.Recorrer())
             {
                 DibujarCarreteraConTiempo(GridCanvas, carretera, _cellSize);
             }
 
             // Dibuja ciudades
-            foreach (var ciudad in ciudades)
+            foreach (var ciudad in ciudades.Recorrer())
             {
                 DibujarCiudad(GridCanvas, ciudad, _cellSize);
             }
@@ -166,12 +165,11 @@ namespace Waze
         private void RedrawCarros()
         {
             // Elimina todos los carros del canvas y los vuelve a dibujar en su ciudad actual
-            var imgs = GridCanvas.Children.OfType<Image>().Where(img =>
-                img.Source is System.Windows.Media.Imaging.BitmapImage bmp && bmp.UriSource.ToString().Contains("carro.png")).ToList();
+            var imgs = GridCanvas.Children.OfType<Image>();
             foreach (var img in imgs)
                 GridCanvas.Children.Remove(img);
 
-            foreach (var carro in carros)
+            foreach (var carro in carros.Recorrer())
             {
                 double x = carro.CiudadActual.X * _cellSize + _cellSize / 2;
                 double y = carro.CiudadActual.Y * _cellSize + _cellSize / 2;
@@ -195,24 +193,30 @@ namespace Waze
                 return;
             }
 
-            if (ciudades.Any(c => c.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase)))
+            foreach (var c in ciudades.Recorrer())
             {
-                MessageBox.Show("Ya existe una ciudad con ese nombre. Por favor, elige otro nombre.");
-                return;
+                if (c.Nombre.Equals(ciudad, StringComparison.OrdinalIgnoreCase))
+                {
+                    MessageBox.Show("Ya existe una ciudad con ese nombre. Por favor, elige otro nombre.");
+                    return;
+                }
             }
 
             if (int.TryParse(InputX.Text, out int x) && int.TryParse(InputY.Text, out int y))
             {
                 if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)
                 {
-                    if (ciudades.Any(c => c.X == x && c.Y == y))
+                    foreach (var c in ciudades.Recorrer())
                     {
-                        MessageBox.Show("Ya existe una ciudad en esa posición.");
-                        return;
+                        if (c.X == x && c.Y == y)
+                        {
+                            MessageBox.Show("Ya existe una ciudad en esa posición.");
+                            return;
+                        }
                     }
 
                     var nuevaCiudad = new Ciudad { Nombre = ciudad, X = x, Y = y };
-                    ciudades.Add(nuevaCiudad);
+                    ciudades.AgregarFinal(nuevaCiudad);
                     ListBoxInicio.Items.Add(nuevaCiudad);
                     ListBoxFin.Items.Add(nuevaCiudad);
 
@@ -245,18 +249,18 @@ namespace Waze
                     return;
                 }
 
-                bool existe = carreteras.Any(c =>
-                    (c.Origen == ciudadInicio && c.Destino == ciudadFin) ||
-                    (c.Origen == ciudadFin && c.Destino == ciudadInicio)
-                );
-                if (existe)
+                foreach (var c in carreteras.Recorrer())
                 {
-                    MessageBox.Show("Ya existe una carretera entre estas dos ciudades.");
-                    return;
+                    if ((c.Origen == ciudadInicio && c.Destino == ciudadFin) ||
+                        (c.Origen == ciudadFin && c.Destino == ciudadInicio))
+                    {
+                        MessageBox.Show("Ya existe una carretera entre estas dos ciudades.");
+                        return;
+                    }
                 }
 
                 var carretera = new Carretera(ciudadInicio, ciudadFin, tiempo);
-                carreteras.Add(carretera);
+                carreteras.AgregarFinal(carretera);
                 DibujarCarreteraConTiempo(GridCanvas, carretera, _cellSize);
             }
             else
@@ -272,19 +276,24 @@ namespace Waze
 
         private void CrearCarroEnCiudadAleatoria()
         {
-            var ciudadesConCarretera = carreteras
-                .SelectMany(c => new[] { c.Origen, c.Destino })
-                .Distinct()
-                .ToList();
+            var ciudadesConCarretera = new ListaSimple<Ciudad>();
+            foreach (var c in carreteras.Recorrer())
+            {
+                if (ciudadesConCarretera.IndiceDe(c.Origen) == -1)
+                    ciudadesConCarretera.AgregarFinal(c.Origen);
+                if (ciudadesConCarretera.IndiceDe(c.Destino) == -1)
+                    ciudadesConCarretera.AgregarFinal(c.Destino);
+            }
 
-            if (ciudadesConCarretera.Count == 0)
+            if (ciudadesConCarretera.EstaVacia())
             {
                 MessageBox.Show("No hay ciudades con carreteras para colocar un carro.");
                 return;
             }
 
             var random = new Random();
-            var ciudad = ciudadesConCarretera[random.Next(ciudadesConCarretera.Count)];
+            int idx = random.Next(0, ciudadesConCarretera.Tamano());
+            var ciudad = ciudadesConCarretera.ElementoEn(idx);
 
             double x = ciudad.X * _cellSize + _cellSize / 2;
             double y = ciudad.Y * _cellSize + _cellSize / 2;
@@ -300,26 +309,23 @@ namespace Waze
             Canvas.SetTop(carroImg, y - size / 2);
             GridCanvas.Children.Add(carroImg);
 
-            carros.Add(new CarroVisual { CiudadActual = ciudad, Imagen = carroImg });
+            carros.AgregarFinal(new CarroVisual { CiudadActual = ciudad, Imagen = carroImg });
         }
 
         private void BtnViajar_Click(object sender, RoutedEventArgs e)
         {
             if (ListBoxFin.SelectedItem is Ciudad ciudadFin)
             {
-                double velocidad = SliderVelocidad.Value; // 1 (lento) a 500 (rápido)
-                int maxInterval = 100; // ms (más lento)
-                int minInterval = 1;   // ms (más rápido)
-                int interval = (int)(maxInterval - ((velocidad - 1) * (maxInterval - minInterval) / (SliderVelocidad.Maximum - 1)));
-                if (interval < minInterval) interval = minInterval;
+                double velocidad = SliderVelocidad.Value;
+                int baseInterval = 30;
+                int minInterval = 2;
+                int interval = (int)(baseInterval + (100 - velocidad) * (baseInterval - minInterval) / 99.0);
 
-
-                foreach (var carro in carros)
+                foreach (var carro in carros.Recorrer())
                 {
-                    AnimarCarro(carro, ciudadFin, _cellSize, interval);
+                    if (carro.CiudadActual != ciudadFin)
+                        AnimarCarro(carro, ciudadFin, _cellSize, interval);
                 }
-
-
             }
             else
             {
@@ -377,7 +383,6 @@ namespace Waze
             };
             canvas.Children.Add(line);
 
-            // Posición del texto (punto medio)
             double textX = (x1 + x2) / 2;
             double textY = (y1 + y2) / 2;
 

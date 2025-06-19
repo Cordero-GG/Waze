@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Waze.Estructuras
@@ -17,7 +18,7 @@ namespace Waze.Estructuras
     }
 
     // Lista enlazada simple genérica
-    public class ListaSimple<T>
+    public class ListaSimple<T> : IEnumerable<T>
     {
         private NodoDll<T> primero;
 
@@ -42,13 +43,14 @@ namespace Waze.Estructuras
             }
         }
 
-        public List<T> Recorrer()
+        // Devuelve una nueva ListaSimple con los elementos
+        public ListaSimple<T> Recorrer()
         {
-            List<T> elementos = new();
+            ListaSimple<T> elementos = new();
             NodoDll<T> actual = primero;
             while (actual != null)
             {
-                elementos.Add(actual.dato);
+                elementos.AgregarFinal(actual.dato);
                 actual = actual.siguiente;
             }
             return elementos;
@@ -156,6 +158,22 @@ namespace Waze.Estructuras
                 actual = actual.siguiente;
             }
             return false;
+        }
+
+        // Implementación de IEnumerable<T>
+        public IEnumerator<T> GetEnumerator()
+        {
+            NodoDll<T> actual = primero;
+            while (actual != null)
+            {
+                yield return actual.dato;
+                actual = actual.siguiente;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 
@@ -428,48 +446,68 @@ namespace Waze.Estructuras
         }
     }
 
-    // Diccionario simple
+    // Diccionario simple usando solo estructuras propias
     public class Diccionario<K, V>
     {
-        private List<K> claves = new();
-        private List<V> valores = new();
+        private ListaSimple<K> claves = new();
+        private ListaSimple<V> valores = new();
 
         public void AgregarOActualizar(K clave, V valor)
         {
-            int index = claves.IndexOf(clave);
+            int index = IndiceDeClave(clave);
             if (index >= 0)
-                valores[index] = valor;
+                valores.ReemplazaEn(index, valor);
             else
             {
-                claves.Add(clave);
-                valores.Add(valor);
+                claves.AgregarFinal(clave);
+                valores.AgregarFinal(valor);
             }
         }
 
-        public bool ContieneClave(K clave) => claves.Contains(clave);
+        public bool ContieneClave(K clave) => IndiceDeClave(clave) >= 0;
 
         public V Obtener(K clave)
         {
-            int index = claves.IndexOf(clave);
+            int index = IndiceDeClave(clave);
             if (index >= 0)
-                return valores[index];
-            throw new KeyNotFoundException();
+                return valores.ElementoEn(index);
+            throw new Exception("Clave no encontrada");
         }
 
         public void Eliminar(K clave)
         {
-            int index = claves.IndexOf(clave);
+            int index = IndiceDeClave(clave);
             if (index >= 0)
             {
-                claves.RemoveAt(index);
-                valores.RemoveAt(index);
+                EliminarEn(claves, index);
+                EliminarEn(valores, index);
             }
         }
 
-        public IEnumerable<K> RecorrerClaves()
+        public ListaSimple<K> RecorrerClaves()
         {
-            foreach (K clave in claves)
-                yield return clave;
+            return claves.Recorrer();
+        }
+
+        private int IndiceDeClave(K clave)
+        {
+            NodoDll<K> actual = claves.GetType()
+                .GetField("primero", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(claves) as NodoDll<K>;
+            int i = 0;
+            while (actual != null)
+            {
+                if (actual.dato.Equals(clave))
+                    return i;
+                actual = actual.siguiente;
+                i++;
+            }
+            return -1;
+        }
+
+        private void EliminarEn<T>(ListaSimple<T> lista, int indice)
+        {
+            lista.EliminarEn(indice);
         }
     }
 
@@ -549,7 +587,7 @@ namespace Waze.Estructuras
         public ListaSimple<TNodo> ObtenerNodos()
         {
             var lista = new ListaSimple<TNodo>();
-            foreach (var nodoAdy in nodos.Recorrer())
+            foreach (var nodoAdy in nodos.Recorrer().Recorrer())
                 lista.AgregarFinal(nodoAdy.Nodo);
             return lista;
         }
@@ -559,7 +597,7 @@ namespace Waze.Estructuras
         /// </summary>
         private NodoAdy BuscarNodoAdy(TNodo nodo)
         {
-            foreach (var n in nodos.Recorrer())
+            foreach (var n in nodos.Recorrer().Recorrer())
                 if (n.Nodo.Equals(nodo))
                     return n;
             return null;

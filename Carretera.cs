@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Waze.Estructuras
+﻿namespace Waze.Estructuras
 {
+    // Representa una carretera entre dos ciudades
     public class Carretera
     {
         public Ciudad Origen { get; set; }
