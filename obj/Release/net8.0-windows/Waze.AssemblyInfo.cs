@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Waze")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32f26405cc2d1eaf9971fdde47f645b78fdcc2cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72a3fd6824e4af291a8232fb0b6402a224af9265")]
 [assembly: System.Reflection.AssemblyProductAttribute("Waze")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Waze")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

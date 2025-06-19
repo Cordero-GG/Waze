@@ -472,4 +472,105 @@ namespace Waze.Estructuras
                 yield return clave;
         }
     }
+
+    // -------------------------------------------------------------------------
+    // ESTRUCTURA DE LISTA DE ADYACENCIA PARA GRAFOS
+    // -------------------------------------------------------------------------
+    /// <summary>
+    /// Representa una lista de adyacencia para un grafo.
+    /// Cada nodo tiene una lista de aristas salientes.
+    /// </summary>
+    /// <typeparam name="TNodo">Tipo del nodo (por ejemplo, Ciudad)</typeparam>
+    /// <typeparam name="TArista">Tipo de la arista (por ejemplo, Carretera)</typeparam>
+    public class ListaAdyacencia<TNodo, TArista>
+    {
+        /// <summary>
+        /// Nodo interno para la lista de adyacencia.
+        /// Relaciona un nodo con su lista de aristas salientes.
+        /// </summary>
+        public class NodoAdy
+        {
+            public TNodo Nodo; // Nodo principal
+            public ListaSimple<TArista> Aristas; // Lista de aristas salientes
+
+            public NodoAdy(TNodo nodo)
+            {
+                Nodo = nodo;
+                Aristas = new ListaSimple<TArista>();
+            }
+        }
+
+        // Lista de nodos de adyacencia
+        private ListaSimple<NodoAdy> nodos;
+
+        /// <summary>
+        /// Constructor: crea una lista de adyacencia vacía.
+        /// </summary>
+        public ListaAdyacencia()
+        {
+            nodos = new ListaSimple<NodoAdy>();
+        }
+
+        /// <summary>
+        /// Agrega un nodo al grafo (si no existe).
+        /// </summary>
+        public void AgregarNodo(TNodo nodo)
+        {
+            if (BuscarNodoAdy(nodo) == null)
+                nodos.AgregarFinal(new NodoAdy(nodo));
+        }
+
+        /// <summary>
+        /// Agrega una arista saliente a un nodo.
+        /// </summary>
+        public void AgregarArista(TNodo origen, TArista arista)
+        {
+            var nodoAdy = BuscarNodoAdy(origen);
+            if (nodoAdy == null)
+            {
+                nodoAdy = new NodoAdy(origen);
+                nodos.AgregarFinal(nodoAdy);
+            }
+            nodoAdy.Aristas.AgregarFinal(arista);
+        }
+
+        /// <summary>
+        /// Devuelve la lista de aristas salientes de un nodo.
+        /// </summary>
+        public ListaSimple<TArista> ObtenerAristas(TNodo nodo)
+        {
+            var nodoAdy = BuscarNodoAdy(nodo);
+            return nodoAdy != null ? nodoAdy.Aristas : new ListaSimple<TArista>();
+        }
+
+        /// <summary>
+        /// Devuelve todos los nodos del grafo.
+        /// </summary>
+        public ListaSimple<TNodo> ObtenerNodos()
+        {
+            var lista = new ListaSimple<TNodo>();
+            foreach (var nodoAdy in nodos.Recorrer())
+                lista.AgregarFinal(nodoAdy.Nodo);
+            return lista;
+        }
+
+        /// <summary>
+        /// Busca el nodo de adyacencia correspondiente a un nodo.
+        /// </summary>
+        private NodoAdy BuscarNodoAdy(TNodo nodo)
+        {
+            foreach (var n in nodos.Recorrer())
+                if (n.Nodo.Equals(nodo))
+                    return n;
+            return null;
+        }
+
+        /// <summary>
+        /// Limpia toda la estructura de adyacencia.
+        /// </summary>
+        public void Limpiar()
+        {
+            nodos.Limpiar();
+        }
+    }
 }
