@@ -1,32 +1,82 @@
 ﻿<Window x:Class="Waze.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow"
-        Background="#FFD3D3D3">
-    <Grid>
+        Title="Waze - Ciudades y Carreteras" Height="800" Width="1300"
+        WindowStartupLocation="CenterScreen"
+        Background="#7CA37C">
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
+            <!-- Panel de controles más angosto -->
+            <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="180"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Controles de entrada -->
-        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left">
-            <TextBlock Text="X:" VerticalAlignment="Center" Margin="0,0,2,0"/>
-            <TextBox x:Name="InputX" Width="40" Margin="0,0,10,0"/>
-            <TextBlock Text="Y:" VerticalAlignment="Center" Margin="0,0,2,0"/>
-            <TextBox x:Name="InputY" Width="40" Margin="0,0,10,0"/>
-            <TextBlock Text="Ciudad:" VerticalAlignment="Center" Margin="0,0,2,0"/>
-            <TextBox x:Name="InputCiudad" Width="100" Margin="0,0,10,0"/>
-            <Button x:Name="BtnColocar" Content="Colocar punto" Click="BtnColocar_Click"/>
+        <!-- Panel de controles a la izquierda -->
+        <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,10,0">
+            <!-- Crear Ciudad -->
+            <GroupBox Header="Crear Ciudad" Margin="0,0,0,6" Foreground="Black" FontSize="11">
+                <StackPanel Orientation="Vertical" Margin="4">
+                    <TextBlock Text="Nombre:" Foreground="Black" FontSize="10"/>
+                    <TextBox x:Name="InputCiudad" Margin="0,0,0,2" FontSize="10" Height="18"/>
+                    <TextBlock Text="Coordenada X:" Foreground="Black" FontSize="10"/>
+                    <TextBox x:Name="InputX" Margin="0,0,0,2" FontSize="10" Height="18"/>
+                    <TextBlock Text="Coordenada Y:" Foreground="Black" FontSize="10"/>
+                    <TextBox x:Name="InputY" Margin="0,0,0,5" FontSize="10" Height="18"/>
+                    <Button x:Name="BtnColocar" Content="Colocar Ciudad" Click="BtnColocar_Click" Height="20" FontSize="10"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Espacio para futuras opciones -->
+            <Border Height="12" Background="Transparent"/>
+
+            <!-- Crear Carretera -->
+            <GroupBox Header="Crear Carretera" Margin="0,0,0,6" Foreground="Black" FontSize="11">
+                <StackPanel Orientation="Vertical" Margin="4">
+                    <TextBlock Text="Ciudad de inicio:" Foreground="Black" FontSize="10"/>
+                    <ListBox x:Name="ListBoxInicio" Height="28" Margin="0,0,0,2" DisplayMemberPath="Nombre" FontSize="10"/>
+                    <TextBlock Text="Ciudad de fin:" Foreground="Black" FontSize="10"/>
+                    <ListBox x:Name="ListBoxFin" Height="28" Margin="0,0,0,2" DisplayMemberPath="Nombre" FontSize="10"/>
+                    <TextBlock Text="Tiempo de recorrido:" Foreground="Black" FontSize="10"/>
+                    <TextBox x:Name="InputTiempo" Margin="0,0,0,5" FontSize="10" Height="18"/>
+                    <Button x:Name="BtnCrearCarretera" Content="Crear Carretera" Click="BtnCrearCarretera_Click" Height="20" FontSize="10"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Espacio para futuras opciones -->
+            <Border Height="12" Background="Transparent"/>
+
+            <!-- Crear Carro -->
+            <GroupBox Header="Crear Carro" Margin="0,0,0,6" Foreground="Black" FontSize="11">
+                <StackPanel Orientation="Vertical" Margin="4">
+                    <Button x:Name="BtnCrearCarro" Content="Crear Carro Aleatorio" Click="BtnCrearCarro_Click" Height="20" FontSize="10"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Espacio para futuras opciones -->
+            <Border Height="12" Background="Transparent"/>
+
+            <!-- Viajar -->
+            <GroupBox Header="Viajar" Margin="0,0,0,6" Foreground="Black" FontSize="11">
+                <StackPanel Orientation="Vertical" Margin="4">
+
+                    <TextBlock Text="Velocidad:" Foreground="Black" FontSize="10"/>
+                    <Slider x:Name="SliderVelocidad" Minimum="1" Maximum="100" Value="50" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,0,0,2" Height="16"/>
+                    <TextBlock x:Name="LabelVelocidad" Text="Velocidad: 50" Foreground="Black" FontSize="10"/>
+                    <Button x:Name="BtnViajar" Content="Viajar" Click="BtnViajar_Click" Height="20" FontSize="10"/>
+                </StackPanel>
+            </GroupBox>
+
+            <!-- Espacio extra para futuras expansiones -->
+            <Border Height="40" Background="Transparent"/>
         </StackPanel>
 
-        <!-- Cuadrícula y labels -->
-        <Grid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="OuterGrid">
+        <!-- Área de visualización a la derecha -->
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -35,46 +85,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Esquina vacía -->
-            <Label x:Name="CornerLabel" Grid.Row="0" Grid.Column="0" Background="Transparent"/>
+            <!-- Etiqueta de esquina -->
+            <Label x:Name="CornerLabel" Grid.Row="0" Grid.Column="0" Width="24" Height="24" Background="#FF7CA37C" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <!-- Labels horizontales -->
-            <StackPanel x:Name="HorizontalLabelsPanel"
-                        Orientation="Horizontal"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"/>
+            <!-- Etiquetas horizontales -->
+            <StackPanel x:Name="HorizontalLabelsPanel" Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Height="24"/>
 
-            <!-- Labels verticales -->
-            <StackPanel x:Name="VerticalLabelsPanel"
-                        Orientation="Vertical"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"/>
+            <!-- Etiquetas verticales -->
+            <StackPanel x:Name="VerticalLabelsPanel" Grid.Row="1" Grid.Column="0" Orientation="Vertical" Width="24"/>
 
-            <!-- Canvas de la cuadrícula -->
-            <Canvas x:Name="GridCanvas"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Background="#FFB9F6CA"/>
+            <!-- Canvas para la matriz y elementos visuales -->
+            <Canvas x:Name="GridCanvas" Grid.RowSpan="3" Background="#7FD959" Margin="0,12,0,12" Grid.Column="1"/>
         </Grid>
-
-        <!-- Panel lateral derecho para carreteras y carros -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">
-            <TextBlock Text="Inicio:" FontWeight="Bold" Margin="0,0,0,2"/>
-            <ListBox x:Name="ListBoxInicio" Width="120" Height="60" Margin="0,0,0,8"/>
-            <TextBlock Text="Destino:" FontWeight="Bold" Margin="0,0,0,2"/>
-            <ListBox x:Name="ListBoxFin" Width="120" Height="60" Margin="0,0,0,8"/>
-            <TextBlock Text="Tiempo (min):" FontWeight="Bold" Margin="0,8,0,2"/>
-            <TextBox x:Name="InputTiempo" Width="120" Height="25" Margin="0,0,0,8"/>
-            <Button x:Name="BtnCrearCarretera" Content="Crear Carretera" Click="BtnCrearCarretera_Click" Width="120" Height="28"/>
-            <Button x:Name="BtnCrearCarro" Content="Crear Carro" Click="BtnCrearCarro_Click" Width="120" Height="28" Margin="0,8,0,0"/>
-            <Button x:Name="BtnViajar" Content="Viajar" Click="BtnViajar_Click" Width="120" Height="28" Margin="0,8,0,0"/>
-            <TextBlock Text="Velocidad de animación:" FontWeight="Bold" Margin="0,16,0,2"/>
-            <Slider x:Name="SliderVelocidad" Minimum="1" Maximum="500" Value="100" Width="120" TickFrequency="1" IsSnapToTickEnabled="True"/>
-            <TextBlock x:Name="LabelVelocidad" Text="Velocidad: 50" Margin="0,2,0,0"/>
-        </StackPanel>
     </Grid>
 </Window>
