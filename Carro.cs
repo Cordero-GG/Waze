@@ -11,14 +11,17 @@ namespace Waze.Estructuras
         public DateTime? HoraLlegada { get; set; }
         public string Id { get; set; }
         public Ciudad CiudadActual { get; set; }
+        public ListaSimple<Conexion> Ruta { get; set; }
 
-        public Carro(Punto origen, Punto destino, string id)
+        public Carro(Punto origen, Punto destino, string id, ListaDoble<Conexion> ruta)
         {
             Origen = origen;
             Destino = destino;
             Id = id;
             HoraInicio = DateTime.Now;
             HoraLlegada = null;
+            Ruta = new ListaSimple<Conexion>();
+
         }
     }
 }
