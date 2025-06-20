@@ -26,17 +26,22 @@ namespace Waze
         private double _cellSize = 0;
 
         /// <summary>
-        /// Lista de ciudades, usando la estructura ListaSimple de Estructuras.cs.
+        /// Lista de ciudades usando solo estructuras propias.
         /// </summary>
         private ListaSimple<Ciudad> ciudades = new ListaSimple<Ciudad>();
 
         /// <summary>
-        /// Lista de carreteras (conexiones), usando la estructura ListaSimple de Estructuras.cs.
+        /// Lista de carreteras usando solo estructuras propias.
         /// </summary>
         private ListaSimple<Carretera> carreteras = new ListaSimple<Carretera>();
 
         /// <summary>
-        /// Lista de carros visuales (opcional, para animaciones).
+        /// Diccionario simple: clave = nombre de ciudad, valor = lista de carreteras relacionadas.
+        /// </summary>
+        private DiccionarioSimple<string, ListaSimple<Carretera>> diccionarioConexiones = new DiccionarioSimple<string, ListaSimple<Carretera>>();
+
+        /// <summary>
+        /// Lista de carros visuales.
         /// </summary>
         private ListaSimple<CarroVisual> carros = new ListaSimple<CarroVisual>();
 
@@ -52,37 +57,22 @@ namespace Waze
             SliderVelocidad.ValueChanged += SliderVelocidad_ValueChanged;
         }
 
-        /// <summary>
-        /// Evento que se ejecuta al cargar la ventana.
-        /// Ajusta el canvas y dibuja la cuadrícula.
-        /// </summary>
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             AdjustCanvasAndDrawGrid();
         }
 
-        /// <summary>
-        /// Evento que se ejecuta al cambiar el tamaño de la ventana.
-        /// Ajusta el canvas y redibuja la cuadrícula.
-        /// </summary>
         private void MainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AdjustCanvasAndDrawGrid();
         }
 
-        /// <summary>
-        /// Evento que se ejecuta al cambiar el valor del slider de velocidad.
-        /// Actualiza la etiqueta de velocidad.
-        /// </summary>
         private void SliderVelocidad_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (LabelVelocidad != null)
                 LabelVelocidad.Text = $"Velocidad: {SliderVelocidad.Value:0}";
         }
 
-        /// <summary>
-        /// Ajusta el tamaño del canvas y dibuja la cuadrícula y los elementos.
-        /// </summary>
         private void AdjustCanvasAndDrawGrid()
         {
             double availableWidth = ActualWidth * 0.8;
@@ -112,9 +102,6 @@ namespace Waze
             RedrawCarros();
         }
 
-        /// <summary>
-        /// Dibuja las etiquetas de coordenadas en los paneles horizontales y verticales.
-        /// </summary>
         private void DrawCoordinateLabels()
         {
             HorizontalLabelsPanel.Children.Clear();
@@ -157,9 +144,6 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Dibuja la cuadrícula en el canvas.
-        /// </summary>
         private void DrawGridOnCanvas()
         {
             GridCanvas.Children.Clear();
@@ -195,9 +179,6 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Redibuja todas las ciudades y carreteras en el canvas.
-        /// </summary>
         private void RedrawCiudadesYCarreteras()
         {
             // Dibuja carreteras
@@ -213,12 +194,8 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Redibuja todos los carros en el canvas.
-        /// </summary>
         private void RedrawCarros()
         {
-            // Elimina todos los carros del canvas y los vuelve a dibujar en su ciudad actual
             var imgs = GridCanvas.Children.OfType<Image>();
             foreach (var img in imgs)
                 GridCanvas.Children.Remove(img);
@@ -238,13 +215,8 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Evento del botón para colocar una ciudad.
-        /// Crea una ciudad y la agrega a la lista de ciudades si no existe.
-        /// </summary>
         private void BtnColocar_Click(object sender, RoutedEventArgs e)
         {
-            // Obtiene el nombre de la ciudad desde el TextBox.
             string nombreCiudad = InputCiudad.Text?.Trim() ?? "";
             if (string.IsNullOrEmpty(nombreCiudad))
             {
@@ -252,7 +224,6 @@ namespace Waze
                 return;
             }
 
-            // Verifica que no exista una ciudad con el mismo nombre.
             foreach (var c in ciudades.Recorrer())
             {
                 if (c.Nombre.Equals(nombreCiudad, StringComparison.OrdinalIgnoreCase))
@@ -262,13 +233,10 @@ namespace Waze
                 }
             }
 
-            // Obtiene las coordenadas X e Y.
             if (int.TryParse(InputX.Text, out int x) && int.TryParse(InputY.Text, out int y))
             {
-                // Verifica que las coordenadas estén dentro del rango permitido.
                 if (x >= 0 && x < GridCols && y >= 0 && y < GridRows)
                 {
-                    // Verifica que no exista una ciudad en la misma posición.
                     foreach (var c in ciudades.Recorrer())
                     {
                         if (c.X == x && c.Y == y)
@@ -278,15 +246,10 @@ namespace Waze
                         }
                     }
 
-                    // Crea el objeto ciudad y lo agrega a la lista de ciudades.
                     var nuevaCiudad = new Ciudad { Nombre = nombreCiudad, X = x, Y = y };
                     ciudades.AgregarFinal(nuevaCiudad);
-
-                    // Agrega la ciudad a los ListBox de selección.
                     ListBoxInicio.Items.Add(nuevaCiudad);
                     ListBoxFin.Items.Add(nuevaCiudad);
-
-                    // Dibuja la ciudad en el canvas.
                     DibujarCiudad(GridCanvas, nuevaCiudad, _cellSize);
                 }
                 else
@@ -300,23 +263,16 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Evento del botón para crear una carretera.
-        /// Crea dos objetos Carretera (A->B y B->A) y los agrega a la lista de carreteras.
-        /// </summary>
         private void BtnCrearCarretera_Click(object sender, RoutedEventArgs e)
         {
-            // Verifica que se haya seleccionado una ciudad de inicio y una de fin.
             if (ListBoxInicio.SelectedItem is Ciudad ciudadInicio && ListBoxFin.SelectedItem is Ciudad ciudadFin)
             {
-                // Verifica que las ciudades sean diferentes.
                 if (ciudadInicio == ciudadFin)
                 {
                     MessageBox.Show("Selecciona dos ciudades diferentes.");
                     return;
                 }
 
-                // Verifica que el tiempo de recorrido sea válido.
                 if (!double.TryParse(InputTiempo.Text, out double tiempo) || tiempo <= 0)
                 {
                     MessageBox.Show("Introduce un tiempo de recorrido válido (mayor a 0).");
@@ -338,6 +294,8 @@ namespace Waze
                 {
                     var carreteraIda = new Carretera(ciudadInicio, ciudadFin, tiempo);
                     carreteras.AgregarFinal(carreteraIda);
+                    AgregarCarreteraADiccionario(ciudadInicio.Nombre, carreteraIda);
+                    AgregarCarreteraADiccionario(ciudadFin.Nombre, carreteraIda);
                     DibujarCarreteraConTiempo(GridCanvas, carreteraIda, _cellSize);
                 }
 
@@ -346,6 +304,8 @@ namespace Waze
                 {
                     var carreteraVuelta = new Carretera(ciudadFin, ciudadInicio, tiempo);
                     carreteras.AgregarFinal(carreteraVuelta);
+                    AgregarCarreteraADiccionario(ciudadFin.Nombre, carreteraVuelta);
+                    AgregarCarreteraADiccionario(ciudadInicio.Nombre, carreteraVuelta);
                     DibujarCarreteraConTiempo(GridCanvas, carreteraVuelta, _cellSize);
                 }
             }
@@ -356,16 +316,28 @@ namespace Waze
         }
 
         /// <summary>
-        /// Evento del botón para crear un carro aleatorio.
+        /// Agrega una carretera a la lista de conexiones de una ciudad en el diccionario propio.
         /// </summary>
+        private void AgregarCarreteraADiccionario(string nombreCiudad, Carretera carretera)
+        {
+            ListaSimple<Carretera> lista;
+            if (diccionarioConexiones.ContieneClave(nombreCiudad))
+            {
+                lista = diccionarioConexiones.Obtener(nombreCiudad);
+            }
+            else
+            {
+                lista = new ListaSimple<Carretera>();
+                diccionarioConexiones.AgregarOActualizar(nombreCiudad, lista);
+            }
+            lista.AgregarFinal(carretera);
+        }
+
         private void BtnCrearCarro_Click(object sender, RoutedEventArgs e)
         {
             CrearCarroEnCiudadAleatoria();
         }
 
-        /// <summary>
-        /// Crea un carro en una ciudad aleatoria que tenga al menos una carretera.
-        /// </summary>
         private void CrearCarroEnCiudadAleatoria()
         {
             var ciudadesConCarretera = new ListaSimple<Ciudad>();
@@ -404,9 +376,6 @@ namespace Waze
             carros.AgregarFinal(new CarroVisual { CiudadActual = ciudad, Imagen = carroImg });
         }
 
-        /// <summary>
-        /// Evento del botón para viajar.
-        /// </summary>
         private void BtnViajar_Click(object sender, RoutedEventArgs e)
         {
             if (ListBoxFin.SelectedItem is Ciudad ciudadFin)
@@ -428,9 +397,6 @@ namespace Waze
             }
         }
 
-        /// <summary>
-        /// Dibuja una ciudad en el canvas.
-        /// </summary>
         private void DibujarCiudad(Canvas canvas, Ciudad ciudad, double cellSize)
         {
             double x = ciudad.X * cellSize + cellSize / 2;
@@ -463,9 +429,6 @@ namespace Waze
             canvas.Children.Add(label);
         }
 
-        /// <summary>
-        /// Dibuja una carretera con el tiempo de recorrido en el canvas.
-        /// </summary>
         private void DibujarCarreteraConTiempo(Canvas canvas, Carretera carretera, double cellSize)
         {
             double x1 = carretera.Origen.X * cellSize + cellSize / 2;
@@ -502,9 +465,6 @@ namespace Waze
             canvas.Children.Add(tiempoLabel);
         }
 
-        /// <summary>
-        /// Anima el movimiento de un carro de una ciudad a otra.
-        /// </summary>
         private void AnimarCarro(CarroVisual carro, Ciudad destino, double cellSize, int interval)
         {
             var img = carro.Imagen;
