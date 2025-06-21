@@ -1,7 +1,9 @@
-﻿using System;
+﻿using DijktragN;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using Waze.Estructuras;
+using DiccionarioDvid;
 
 namespace Waze
 {
@@ -340,6 +342,7 @@ namespace Waze
 
         private void CrearCarroEnCiudadAleatoria()
         {
+            // Obtener ciudades con al menos una carretera
             var ciudadesConCarretera = new ListaSimple<Ciudad>();
             foreach (var c in carreteras.Recorrer())
             {
@@ -349,18 +352,37 @@ namespace Waze
                     ciudadesConCarretera.AgregarFinal(c.Destino);
             }
 
-            if (ciudadesConCarretera.EstaVacia())
+            if (ciudadesConCarretera.Tamano() < 2)
             {
-                MessageBox.Show("No hay ciudades con carreteras para colocar un carro.");
+                MessageBox.Show("Se requieren al menos dos ciudades conectadas para crear un carro.");
                 return;
             }
 
             var random = new Random();
-            int idx = random.Next(0, ciudadesConCarretera.Tamano());
-            var ciudad = ciudadesConCarretera.ElementoEn(idx);
+            int idxOrigen = random.Next(0, ciudadesConCarretera.Tamano());
+            int idxDestino;
+            do
+            {
+                idxDestino = random.Next(0, ciudadesConCarretera.Tamano());
+            } while (idxDestino == idxOrigen);
 
-            double x = ciudad.X * _cellSize + _cellSize / 2;
-            double y = ciudad.Y * _cellSize + _cellSize / 2;
+            var ciudadOrigen = ciudadesConCarretera.ElementoEn(idxOrigen);
+            var ciudadDestino = ciudadesConCarretera.ElementoEn(idxDestino);
+
+            // Instanciar Dijkstrag y calcular ruta
+            var dijkstra = new Dijkstrag();
+            var ruta = dijkstra.EncontrarRutaMasCorta(ciudadOrigen, ciudadDestino, ciudades, diccionarioConexiones);
+
+            if (ruta == null || ruta.EstaVacia())
+            {
+                MessageBox.Show($"No hay ruta válida entre {ciudadOrigen.Nombre} y {ciudadDestino.Nombre}");
+                return;
+            }
+
+
+            // Crear imagen visual del carro
+            double x = ciudadOrigen.X * _cellSize + _cellSize / 2;
+            double y = ciudadOrigen.Y * _cellSize + _cellSize / 2;
             double size = _cellSize * 0.25;
 
             var carroImg = new System.Windows.Controls.Image
@@ -373,29 +395,144 @@ namespace Waze
             Canvas.SetTop(carroImg, y - size / 2);
             GridCanvas.Children.Add(carroImg);
 
-            carros.AgregarFinal(new CarroVisual { CiudadActual = ciudad, Imagen = carroImg });
+            // Crear CarroVisual y Carro lógico
+            var carroVisual = new CarroVisual
+            {
+                CiudadActual = ciudadOrigen,
+                Imagen = carroImg,
+                Ruta = ruta // Asegúrate de tener esta propiedad en CarroVisual
+            };
+
+            var carroLogico = new Carro(
+                new Punto(ciudadOrigen.Nombre, ciudadOrigen.X, ciudadOrigen.Y),
+                new Punto(ciudadDestino.Nombre, ciudadDestino.X, ciudadDestino.Y),
+                Guid.NewGuid().ToString(), // o el id que tú quieras
+                ruta
+            );
+            carroLogico.CiudadActual = ciudadOrigen;
+
+            // Agregar a las listas
+            carros.AgregarFinal(carroVisual);
+            // Agrega el carro lógico a la lista correspondiente si tienes una (por ejemplo: listaCarrosLogicos.AgregarFinal(carroLogico);)
         }
+
 
         private void BtnViajar_Click(object sender, RoutedEventArgs e)
         {
-            if (ListBoxFin.SelectedItem is Ciudad ciudadFin)
-            {
-                double velocidad = SliderVelocidad.Value;
-                int baseInterval = 30;
-                int minInterval = 2;
-                int interval = (int)(baseInterval + (100 - velocidad) * (baseInterval - minInterval) / 99.0);
+            double velocidad = SliderVelocidad.Value;
+            int baseInterval = 30;
+            int minInterval = 2;
+            int interval = (int)(baseInterval + (100 - velocidad) * (baseInterval - minInterval) / 99.0);
 
-                foreach (var carro in carros.Recorrer())
+            foreach (var carro in carros.Recorrer())
+            {
+                if (carro.Ruta != null && !carro.Ruta.EstaVacia())
                 {
-                    if (carro.CiudadActual != ciudadFin)
-                        AnimarCarro(carro, ciudadFin, _cellSize, interval);
+                    AnimarCarroPorRuta(carro, _cellSize, interval);
+                }
+                else
+                {
+                    MessageBox.Show("Carro sin ruta");
                 }
             }
-            else
-            {
-                MessageBox.Show("Selecciona una ciudad de destino.");
-            }
         }
+
+        private void AnimarCarroPorRuta(CarroVisual carro, double cellSize, int interval)
+        {
+            TextBlock tiempoRestanteLabel = null;
+
+            if (carro.Ruta == null || carro.Ruta.EstaVacia())
+                return;
+
+            var ruta = carro.Ruta;
+            int paso = 0;
+
+            void MoverAlSiguientePaso()
+            {
+                if (paso >= ruta.Tamano())
+                {
+                    // Elimina la etiqueta de tiempo al finalizar la ruta
+                    if (tiempoRestanteLabel != null)
+                        GridCanvas.Children.Remove(tiempoRestanteLabel);
+                    return;
+                }
+
+                var carretera = ruta.ElementoEn(paso);
+                var origen = carretera.Origen;
+                var destino = carretera.Destino;
+
+                var img = carro.Imagen;
+                double size = img.Width;
+                double x0 = origen.X * cellSize + cellSize / 2 - size / 2;
+                double y0 = origen.Y * cellSize + cellSize / 2 - size / 2;
+                double x1 = destino.X * cellSize + cellSize / 2 - size / 2;
+                double y1 = destino.Y * cellSize + cellSize / 2 - size / 2;
+
+                // ROTAR imagen según dirección
+                double dx = x1 - x0;
+                double dy = y1 - y0;
+                double angle = Math.Atan2(dy, dx) * 180 / Math.PI;
+                img.RenderTransform = new System.Windows.Media.RotateTransform(angle, size / 2, size / 2);
+
+                // AJUSTAR velocidad basada en tiempo real de la carretera
+                double tiempoTramo = carretera.Tiempo; // en segundos
+                int steps = 50;
+                int intervalMs = (int)(tiempoTramo * 1000 / steps);
+
+                int currentStep = 0;
+
+                // MOSTRAR etiqueta temporal con tiempo restante
+                if (tiempoRestanteLabel == null)
+                {
+                    tiempoRestanteLabel = new TextBlock
+                    {
+                        Foreground = System.Windows.Media.Brushes.DarkGreen,
+                        FontWeight = FontWeights.Bold,
+                        FontSize = cellSize * 0.25,
+                        Background = System.Windows.Media.Brushes.White,
+                        Opacity = 0.85,
+                        Padding = new Thickness(2)
+                    };
+                    GridCanvas.Children.Add(tiempoRestanteLabel);
+                }
+
+                var timer = new System.Windows.Threading.DispatcherTimer
+                {
+                    Interval = TimeSpan.FromMilliseconds(intervalMs)
+                };
+
+                timer.Tick += (s, e) =>
+                {
+                    currentStep++;
+                    double t = (double)currentStep / steps;
+                    double x = x0 + (x1 - x0) * t;
+                    double y = y0 + (y1 - y0) * t;
+                    Canvas.SetLeft(img, x);
+                    Canvas.SetTop(img, y);
+
+                    // Actualiza la etiqueta de tiempo restante
+                    double tiempoRestante = Math.Max(0, carretera.Tiempo * (1 - t));
+                    tiempoRestanteLabel.Text = $"⏱ {tiempoRestante:0.0}s";
+                    Canvas.SetLeft(tiempoRestanteLabel, x + size / 2);
+                    Canvas.SetTop(tiempoRestanteLabel, y - size / 2);
+
+                    if (currentStep >= steps)
+                    {
+                        timer.Stop();
+                        carro.CiudadActual = destino;
+                        paso++;
+                        MoverAlSiguientePaso();
+                    }
+                };
+                timer.Start();
+            }
+
+
+            // Inicia la animación
+            MoverAlSiguientePaso();
+        }
+
+
 
         private void DibujarCiudad(Canvas canvas, Ciudad ciudad, double cellSize)
         {
@@ -463,38 +600,6 @@ namespace Waze
             Canvas.SetLeft(tiempoLabel, textX - cellSize * 0.15);
             Canvas.SetTop(tiempoLabel, textY - cellSize * 0.15);
             canvas.Children.Add(tiempoLabel);
-        }
-
-        private void AnimarCarro(CarroVisual carro, Ciudad destino, double cellSize, int interval)
-        {
-            var img = carro.Imagen;
-            double size = img.Width;
-            double x0 = carro.CiudadActual.X * cellSize + cellSize / 2 - size / 2;
-            double y0 = carro.CiudadActual.Y * cellSize + cellSize / 2 - size / 2;
-            double x1 = destino.X * cellSize + cellSize / 2 - size / 2;
-            double y1 = destino.Y * cellSize + cellSize / 2 - size / 2;
-
-            int steps = 50;
-            int currentStep = 0;
-            var timer = new System.Windows.Threading.DispatcherTimer
-            {
-                Interval = TimeSpan.FromMilliseconds(interval)
-            };
-            timer.Tick += (s, e) =>
-            {
-                currentStep++;
-                double t = (double)currentStep / steps;
-                double x = x0 + (x1 - x0) * t;
-                double y = y0 + (y1 - y0) * t;
-                Canvas.SetLeft(img, x);
-                Canvas.SetTop(img, y);
-                if (currentStep >= steps)
-                {
-                    timer.Stop();
-                    carro.CiudadActual = destino;
-                }
-            };
-            timer.Start();
         }
     }
 }

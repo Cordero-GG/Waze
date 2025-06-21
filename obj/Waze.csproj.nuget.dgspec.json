@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shoko\\OneDrive\\Documentos\\Waze\\Waze.csproj": {}
+    "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Waze.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shoko\\OneDrive\\Documentos\\Waze\\Waze.csproj": {
+    "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Waze.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shoko\\OneDrive\\Documentos\\Waze\\Waze.csproj",
+        "projectUniqueName": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Waze.csproj",
         "projectName": "Waze",
-        "projectPath": "C:\\Users\\shoko\\OneDrive\\Documentos\\Waze\\Waze.csproj",
-        "packagesPath": "C:\\Users\\shoko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shoko\\OneDrive\\Documentos\\Waze\\obj\\",
+        "projectPath": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Waze.csproj",
+        "packagesPath": "C:\\Users\\GokFu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\shoko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GokFu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

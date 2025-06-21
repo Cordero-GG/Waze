@@ -8,5 +8,6 @@ namespace Waze.Estructuras
     {
         public Ciudad CiudadActual { get; set; }
         public Image Imagen { get; set; }
+        public ListaSimple<Carretera> Ruta { get; set; }
     }
 }

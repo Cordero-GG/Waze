@@ -27,6 +27,14 @@ namespace Waze.Estructuras
             primero = null;
         }
 
+        public void AgregarAlPrincipio(T valor)
+        {
+            NodoDll<T> nuevo = new NodoDll<T>(valor);
+            nuevo.siguiente = primero;
+            primero = nuevo;
+        }
+
+
         public void Insertar(T valor) => AgregarFinal(valor);
 
         public void AgregarFinal(T valor)
