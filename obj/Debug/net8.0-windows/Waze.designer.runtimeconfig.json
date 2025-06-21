@@ -12,8 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\GokFu\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\GokFu\\.nuget\\packages",
+      "C:\\Users\\damoz\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\damoz\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {

@@ -1,53 +1,49 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\",
+  "WorkspaceRootPath": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\estructuras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:estructuras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\grafo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:grafo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\carretera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carretera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\animaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:animaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\ciudad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:ciudad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\carrovisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carrovisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\users\\gokfu\\onedrive\\desktop\\waze\\diccionarioconexiones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\grafo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:grafo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\animaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:animaciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\carretera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carretera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\estructuras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:estructuras.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:conexion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\carrovisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:carrovisual.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|c:\\c\u00F3digos\\datos 1\\proyecto3\\waze\\diccionarioconexiones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0BD77F8E-38DB-4ACB-B54B-642E111234C3}|Waze.csproj|solutionrelative:diccionarioconexiones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -62,14 +58,6 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
@@ -78,11 +66,15 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             }
           ]
         },
@@ -96,89 +88,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Grafo.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Grafo.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Grafo.cs",
               "RelativeDocumentMoniker": "Grafo.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Grafo.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Grafo.cs",
               "RelativeToolTip": "Grafo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T23:02:29.543Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T23:02:29.543Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "AssemblyInfo.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\AssemblyInfo.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\AssemblyInfo.cs",
               "RelativeToolTip": "AssemblyInfo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T22:54:06.338Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T22:54:06.338Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Animaciones.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Animaciones.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Animaciones.cs",
               "RelativeDocumentMoniker": "Animaciones.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Animaciones.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Animaciones.cs",
               "RelativeToolTip": "Animaciones.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T22:53:32.937Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T22:53:32.937Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Ciudad.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Ciudad.cs",
-              "RelativeDocumentMoniker": "Ciudad.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Ciudad.cs",
-              "RelativeToolTip": "Ciudad.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T22:52:55.16Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "Carretera.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Carretera.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Carretera.cs",
               "RelativeDocumentMoniker": "Carretera.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Carretera.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Carretera.cs",
               "RelativeToolTip": "Carretera.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-18T03:02:26.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-18T03:02:26.085Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "Estructuras.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Estructuras.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Estructuras.cs",
               "RelativeDocumentMoniker": "Estructuras.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Estructuras.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Estructuras.cs",
               "RelativeToolTip": "Estructuras.cs",
               "ViewState": "AgIAAA4BAAAAAAAAAAAiwBIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T16:27:09.478Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-19T16:27:09.478Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Carro.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Carro.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Carro.cs",
               "RelativeDocumentMoniker": "Carro.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Carro.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Carro.cs",
               "RelativeToolTip": "Carro.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -187,13 +161,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAAIwBAAAAAAAAAAAuwJIAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMBAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-18T03:03:27.875Z",
               "EditorCaption": ""
@@ -202,22 +176,21 @@
               "$type": "Document",
               "DocumentIndex": 8,
               "Title": "Conexion.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Conexion.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Conexion.cs",
               "RelativeDocumentMoniker": "Conexion.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\Conexion.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\Conexion.cs",
               "RelativeToolTip": "Conexion.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T22:27:05.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T22:27:05.604Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\MainWindow.xaml",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-06-18T03:02:58.442Z",
@@ -227,27 +200,25 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "CarroVisual.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\CarroVisual.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\CarroVisual.cs",
               "RelativeDocumentMoniker": "CarroVisual.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\CarroVisual.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\CarroVisual.cs",
               "RelativeToolTip": "CarroVisual.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-18T04:26:18.619Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-18T04:26:18.619Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 10,
               "Title": "DiccionarioConexiones.cs",
-              "DocumentMoniker": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\DiccionarioConexiones.cs",
+              "DocumentMoniker": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\DiccionarioConexiones.cs",
               "RelativeDocumentMoniker": "DiccionarioConexiones.cs",
-              "ToolTip": "C:\\Users\\GokFu\\OneDrive\\Desktop\\Waze\\DiccionarioConexiones.cs",
+              "ToolTip": "C:\\C\u00F3digos\\DATOS 1\\Proyecto3\\Waze\\DiccionarioConexiones.cs",
               "RelativeToolTip": "DiccionarioConexiones.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T08:34:49.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T08:34:49.597Z"
             }
           ]
         }

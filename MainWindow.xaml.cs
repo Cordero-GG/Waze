@@ -38,7 +38,7 @@ namespace Waze
         /// <summary>
         /// Diccionario simple: clave = nombre de ciudad, valor = lista de carreteras relacionadas.
         /// </summary>
-        private DiccionarioSimple<string, ListaSimple<Carretera>> diccionarioConexiones = new DiccionarioSimple<string, ListaSimple<Carretera>>();
+        private DiccionarioSimple<Ciudad, ListaSimple<Carretera>> diccionarioConexiones = new DiccionarioSimple<Ciudad, ListaSimple<Carretera>>();
 
         /// <summary>
         /// Lista de carros visuales.
@@ -294,8 +294,8 @@ namespace Waze
                 {
                     var carreteraIda = new Carretera(ciudadInicio, ciudadFin, tiempo);
                     carreteras.AgregarFinal(carreteraIda);
-                    AgregarCarreteraADiccionario(ciudadInicio.Nombre, carreteraIda);
-                    AgregarCarreteraADiccionario(ciudadFin.Nombre, carreteraIda);
+                    AgregarCarreteraADiccionario(ciudadInicio, carreteraIda);
+                    AgregarCarreteraADiccionario(ciudadFin, carreteraIda);
                     DibujarCarreteraConTiempo(GridCanvas, carreteraIda, _cellSize);
                 }
 
@@ -304,8 +304,8 @@ namespace Waze
                 {
                     var carreteraVuelta = new Carretera(ciudadFin, ciudadInicio, tiempo);
                     carreteras.AgregarFinal(carreteraVuelta);
-                    AgregarCarreteraADiccionario(ciudadFin.Nombre, carreteraVuelta);
-                    AgregarCarreteraADiccionario(ciudadInicio.Nombre, carreteraVuelta);
+                    AgregarCarreteraADiccionario(ciudadFin, carreteraVuelta);
+                    AgregarCarreteraADiccionario(ciudadInicio, carreteraVuelta);
                     DibujarCarreteraConTiempo(GridCanvas, carreteraVuelta, _cellSize);
                 }
             }
@@ -318,17 +318,17 @@ namespace Waze
         /// <summary>
         /// Agrega una carretera a la lista de conexiones de una ciudad en el diccionario propio.
         /// </summary>
-        private void AgregarCarreteraADiccionario(string nombreCiudad, Carretera carretera)
+        private void AgregarCarreteraADiccionario(Ciudad ciudad, Carretera carretera)
         {
             ListaSimple<Carretera> lista;
-            if (diccionarioConexiones.ContieneClave(nombreCiudad))
+            if (diccionarioConexiones.ContieneClave(ciudad))
             {
-                lista = diccionarioConexiones.Obtener(nombreCiudad);
+                lista = diccionarioConexiones.Obtener(ciudad);
             }
             else
             {
                 lista = new ListaSimple<Carretera>();
-                diccionarioConexiones.AgregarOActualizar(nombreCiudad, lista);
+                diccionarioConexiones.AgregarOActualizar(ciudad, lista);
             }
             lista.AgregarFinal(carretera);
         }
