@@ -477,7 +477,10 @@ namespace Waze
                 // AJUSTAR velocidad basada en tiempo real de la carretera
                 double tiempoTramo = carretera.Tiempo; // en segundos
                 int steps = 50;
-                int intervalMs = (int)(tiempoTramo * 1000 / steps);
+                double velocidad = SliderVelocidad.Value > 0 ? SliderVelocidad.Value : 1;
+                int intervalMs = (int)((tiempoTramo * 1000 / steps) / velocidad);
+
+
 
                 int currentStep = 0;
 
